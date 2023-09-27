@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import Link from "next/link";
 import { AdCard, AdCardProps } from "./AdCard";
+import axios from "axios";
+import { API_URL } from "@/config";
+import path from "path";
 
 export const ads: AdCardProps[] = [
   {
@@ -48,31 +51,91 @@ export const ads: AdCardProps[] = [
 ];
 
 export function RecentAds(): React.ReactNode {
+  const [ads, setAds] = useState([] as AdCardProps[]);
   const [totalPrice, setTotalPrice] = useState(0);
+
+  function addToTotal(price: number) {
+    const newTotalPrice = price + totalPrice;
+    setTotalPrice(newTotalPrice);
+  }
+
+  async function getAllRecendsAds() {
+    try {
+      const res = await axios.get(`${API_URL}/ads`);
+      console.log(res.data);
+      setAds(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    getAllRecendsAds();
+  }, []);
+
+  const handleDeleteAds = async (id: number) => {
+    console.log(id);
+    try {
+      const res = await axios.delete(`${API_URL}/ads/${id}`);
+      const refreshAd = ads.filter((ad) => ad.id !== id);
+      setAds(refreshAd);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleEditAd = async (id: number) => {
+    console.log(id);
+    try {
+      const res = await axios.patch(`${API_URL}/ads/${id}`);
+      const refreshAd = ads.find((ad) => ad.id === id);
+      if (refreshAd) {
+        let path = `/ads/${id}`;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <main className="main-content">
       <h2>Annonces récentes</h2>
       <h4>Montant de votre panier : {totalPrice}</h4>
       <section className="recent-ads">
         <div>
-          {ads.map((item) => (
+          {ads.map((item, i) => (
             <div key={item.price}>
               <AdCard
                 id={item.id}
                 title={item.title}
                 price={item.price}
                 imgUrl={item.imgUrl}
-                link={item.link}
+                link={"/ads/" + item.id}
               />
-              <button
-                className="button"
-                onClick={() => {
-                  setTotalPrice(totalPrice + item.price);
-                  console.log(totalPrice);
-                }}
-              >
-                Ajouter au panier
-              </button>
+              <div className="row-button-ad">
+                <button
+                  className="button"
+                  onClick={() => {
+                    addToTotal(item.price);
+                  }}
+                >
+                  Ajouter {item.price}€ au total
+                </button>
+                <button
+                  type="button"
+                  className="buton"
+                  onClick={() => handleEditAd(item.id)}
+                >
+                  <a href={path}> Modifier</a>
+                </button>
+                <button
+                  type="button"
+                  className="button"
+                  onClick={() => handleDeleteAds(item.id)}
+                >
+                  Supprimer cette annonce
+                </button>
+              </div>
             </div>
           ))}
         </div>

@@ -1,60 +1,114 @@
+### Tags - getAll
+GET http://localhost:5000/tags
+
+### Tags - getOne
+GET http://localhost:5000/tags/1
+
+### Tags - getOne
+DELETE http://localhost:5000/tags/1
+
+
 ### Tags - createOne
-POST http://localhost:3000/tags
+POST http://localhost:5000/tags
 content-type: application/json
 
 {
-  "name": "Couleur"
+  "name": "Tag 1"
 }
 
 ### Categories - createOne
-POST http://localhost:3000/categories
+POST http://localhost:5000/categories
 content-type: application/json
 
 {
-  "name": "Super category"
+  "name": "Seconde category"
 }
 
 ### Categories - patchOne
-PATCH  http://localhost:3000/categories/1
+PATCH  http://localhost:5000/categories/1
 content-type: application/json
 
 {
   "name": "Updated category"
 }
 
-### Categories - getOne
-GET http://localhost:3000/categories/1
+### Categories - getAll
+GET http://localhost:5000/categories
 
 ### Categories - getOne
-GET http://localhost:3000/categories/1/ads
+GET http://localhost:5000/categories/1/ads
 
 ### Ads - getAll
-GET http://localhost:3000/ads
+GET http://localhost:5000/ads
 
 ### Ads - getAll (with filter)
-GET http://localhost:3000/ads?search=bike
+GET http://localhost:5000/ads?search=bike
 
 ### Ads - getOne
-GET http://localhost:3000/ads/5
+GET http://localhost:5000/ads/1
 
 ### Ads - createOne
-POST http://localhost:3000/ads
-content-type: application/json
+POST http://localhost:5000/ads
+content-Type: application/json
 
-{
-  "title": "JE vends un vélo normal",
-  "description": null,
-  "category": { "id": 1 },
-  "tags": [{ "id": 1 }],
-  "price": 150
-}
+
+  # {
+  #   "title": "Table",
+  #   "description": "Une table en bois",
+  #   "price": 120,
+  #   "imgUrl": "/images/table.webp",
+  #   "tags": [{ "id": 2 }],
+  #   "category": { "id": 1 }
+  # },
+  # {
+  #   "title": "Vide-poche",
+  #   "price": 4,
+  #   "description": "Un vide-poche en céramique",
+  #   "imgUrl": "/images/vide-poche.webp",
+  #   "tags": [{ "id": 2 }],
+  #   "category": { "id": 1 }
+  # },
+  # {
+  #   "title": "Vaisselier",
+  #   "price": 900,
+  #   "description": "Un vaisselier en bois",
+  #   "imgUrl": "/images/vaisselier.webp",
+  #   "tags": [{ "id": 2 }],
+  #   "category": { "id": 1 }
+  # },
+  # {
+  #   "title": "Bougie",
+  #   "price": 8,
+  #   "description": "Une bougie parfumée",
+  #   "imgUrl": "/images/bougie.webp",
+  #   "tags": [{ "id": 2 }],
+  #   "category": { "id": 1 }
+  # },
+  # {
+  #   "title": "Porte-magazine",
+  #   "price": 45,
+  #   "description": "Un porte-magazine en bois",
+  #   "imgUrl": "/images/porte-magazine.webp",
+  #   "tags": [{ "id": 2 }],
+  #   "category": { "id": 1 }
+  # }
+  {
+    "title": "Dame-jeanne",
+    "price": 75,
+    "description": "Une dame-jeanne en verre",
+    "imgUrl": "/images/dame-jeanne.webp",
+    "tags": [{ "id": 1 }],
+    "category": { "id": 1 }
+  }
+
+
 
 ### Ads - deleteOne
 
-DELETE http://localhost:3000/ads/1
+DELETE http://localhost:5000/ads/2
 
 ### Ads - patchOne
-PATCH http://localhost:3000/ads/5
+PATCH http://localhost:5000/ads/5
 content-type: application/json
 
 {

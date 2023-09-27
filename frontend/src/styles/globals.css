@@ -87,6 +87,7 @@ h1 {
 
 .text-field {
     height: 40px;
+    width: 100%;
     background-color: white;
     padding: 8px;
     border: 2px solid #ffa41b;
@@ -197,4 +198,28 @@ h1 {
     height: 1px;
     background-color: lightgray;
     border: none;
+}
+
+.main-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 4px;}
+
+.input-label {
+    display: flex   ;
+    flex-direction: column;
+    width: 50%;
+    gap: 0.5rem;
+}
+
+
+.row-button-ad {
+    display: flex;
+    justify-content: space-between;
 }

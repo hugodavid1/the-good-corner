@@ -1,61 +1,22 @@
-import React from "react";
-import { Category } from "./Category";
-
-export type Categorie = {
-  id: number;
-  name: string;
-  link: string;
-};
-
-const categories: Categorie[] = [
-  {
-    id: 1,
-    name: "Ameublement",
-    link: "",
-  },
-  {
-    id: 2,
-    name: "Electroménager",
-    link: "",
-  },
-  {
-    id: 3,
-    name: "Photographie",
-    link: "",
-  },
-  {
-    id: 4,
-    name: "Informatique",
-    link: "",
-  },
-  {
-    id: 5,
-    name: "Jeux vidéo",
-    link: "",
-  },
-  {
-    id: 6,
-    name: "Livres",
-    link: "",
-  },
-  {
-    id: 7,
-    name: "Vêtements",
-    link: "",
-  },
-  {
-    id: 8,
-    name: "Chaussures",
-    link: "",
-  },
-  {
-    id: 9,
-    name: "Autres",
-    link: "",
-  },
-];
+import React, { useEffect, useState } from "react";
+import { Category, CategoryProps } from "./Category";
+import axios from "axios";
+import { API_URL } from "@/config";
 
 export function Header() {
+  const [categories, setCategories] = useState<CategoryProps[]>([]);
+
+  useEffect(() => {
+    async function getCategories() {
+      try {
+        const response = await axios.get(`${API_URL}/categories`);
+        setCategories(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getCategories();
+  }, []);
   return (
     <>
       <header className="header">
@@ -82,19 +43,15 @@ export function Header() {
               </svg>
             </button>
           </form>
-          <a href="/post-ad" className="button link-button">
+          <a href="/ads/new" className="button link-button">
             <span className="mobile-short-label">Publier</span>
             <span className="desktop-long-label">Publier une annonce</span>
           </a>
         </div>
         <nav className="categories-navigation">
-          {categories.map((category, index) => (
+          {categories.map((item, index) => (
             <>
-              <Category
-                key={category.name}
-                name={category.name}
-                link={category.link}
-              />{" "}
+              <Category key={item.id} id={item.id} name={item.name} />{" "}
               {index < categories.length - 1 && "•"}
             </>
           ))}
