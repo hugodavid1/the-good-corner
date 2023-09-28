@@ -53,6 +53,10 @@ export const ads: AdCardProps[] = [
 export function RecentAds(): React.ReactNode {
   const [ads, setAds] = useState([] as AdCardProps[]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const handleRedirect = (id: number) => {
+    console.log(id);
+    window.location.href = "/ads/new/" + id;
+  };
 
   function addToTotal(price: number) {
     const newTotalPrice = price + totalPrice;
@@ -124,9 +128,9 @@ export function RecentAds(): React.ReactNode {
                 <button
                   type="button"
                   className="buton"
-                  onClick={() => handleEditAd(item.id)}
+                  onClick={() => handleRedirect(item.id)}
                 >
-                  <a href={path}> Modifier</a>
+                  Modifier l'annonce
                 </button>
                 <button
                   type="button"
