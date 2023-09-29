@@ -1,57 +1,11 @@
 import React, { use, useEffect, useState } from "react";
 import Link from "next/link";
-import { AdCard, AdCardProps } from "./AdCard";
+import { AdCard, AdCardType } from "./AdCard";
 import axios from "axios";
 import { API_URL } from "@/config";
-import path from "path";
-
-export const ads: AdCardProps[] = [
-  {
-    id: 1,
-    title: "Table",
-    price: 120,
-    link: "/ads/table",
-    imgUrl: "/images/table.webp",
-  },
-  {
-    id: 2,
-    title: "Dame-jeanne",
-    price: 75,
-    link: "/ads/dame-jeanne",
-    imgUrl: "/images/dame-jeanne.webp",
-  },
-  {
-    id: 3,
-    title: "Vide-poche",
-    price: 4,
-    link: "/ads/vide-poche",
-    imgUrl: "/images/vide-poche.webp",
-  },
-  {
-    id: 4,
-    title: "Vaisselier",
-    price: 900,
-    link: "/ads/vaisselier",
-    imgUrl: "/images/vaisselier.webp",
-  },
-  {
-    id: 5,
-    title: "Bougie",
-    price: 8,
-    link: "/ads/bougie",
-    imgUrl: "/images/bougie.webp",
-  },
-  {
-    id: 6,
-    title: "Porte-magazine",
-    price: 45,
-    link: "/ads/porte-magazine",
-    imgUrl: "/images/porte-magazine.webp",
-  },
-];
 
 export function RecentAds(): React.ReactNode {
-  const [ads, setAds] = useState([] as AdCardProps[]);
+  const [ads, setAds] = useState([] as AdCardType[]);
   const [totalPrice, setTotalPrice] = useState(0);
   const handleRedirect = (id: number) => {
     console.log(id);
@@ -127,7 +81,7 @@ export function RecentAds(): React.ReactNode {
                 </button>
                 <button
                   type="button"
-                  className="buton"
+                  className="button"
                   onClick={() => handleRedirect(item.id)}
                 >
                   Modifier l'annonce

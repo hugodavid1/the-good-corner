@@ -1,11 +1,18 @@
-import React from "react";
+import { API_URL } from "@/config";
+import axios from "axios";
 
-export type AdCardProps = {
+export type AdCardType = {
   id: number;
   link: string;
   imgUrl: string;
+  description?: string;
+  createdAt?: string;
   title: string;
   price: number;
+};
+
+export type AdCardProps = AdCardType & {
+  onDelete?: () => void;
 };
 
 export function AdCard(props: AdCardProps): React.ReactNode {

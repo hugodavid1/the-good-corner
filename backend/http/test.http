@@ -34,9 +34,11 @@ content-type: application/json
 
 ### Categories - getAll
 GET http://localhost:5000/categories
+### Categories - getOne
+GET http://localhost:5000/categories/1
 
 ### Ads - getAll (with filter)
-GET http://localhost:5000/ads?categoryIn=2
+GET http://localhost:5000/ads?categoryIn=1
 
 ### Categories - getOne
 GET http://localhost:5000/categories/1/ads
@@ -56,11 +58,11 @@ GET http://localhost:5000/ads?orderByPrice=DESC
 POST http://localhost:5000/ads
 content-Type: application/json
 
-{
-    "title": "Table",
-    "description": "Une table en bois",
-    "price": 120,
-    "imgUrl": "/images/table.webp",
+  {
+    "title": "Bougie",
+    "price": 8,
+    "description": "Une bougie parfumée",
+    "imgUrl": "/images/bougie.webp",
     "tags": [{ "id": 1 }],
     "category": { "id": 1 }
   }

@@ -1,44 +1,46 @@
 import { useRouter } from "next/router";
-import { ads } from "@/components/RecentAds";
 import { Layout } from "@/components/Layout";
+import { AdCardType } from "@/components/AdCard";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { API_URL } from "@/config";
 
 const AdDetailComponent = () => {
+  const [ads, setAds] = useState<AdCardType>();
   const router = useRouter();
-  const id = router.query.id as string;
-  let foundAd = null;
+  const id = router.query.id;
 
-  for (const ad of ads) {
-    if (ad.link.endsWith(id)) {
-      foundAd = ad;
-      break;
-    }
+  async function fetchAd() {
+    const result = await axios.get<AdCardType>(`${API_URL}/ads/${id}`);
+    setAds(result.data);
   }
-  console.log(foundAd);
+
+  useEffect(() => {
+    // mounting
+    if (typeof id === "string") {
+      fetchAd();
+    }
+  }, [id]);
 
   return (
     <>
       <Layout title="Ad Detail">
         <div className="main-content">
-          <p>Offre ID: {router.query.id}</p>
-          {foundAd && (
+          {ads && (
             <>
-              <h2 className="ad-details-title">{foundAd.title}</h2>
+              <h2 className="ad-details-title">{ads.title}</h2>
               <section className="ad-details">
                 <div className="ad-details-image-container">
-                  <img className="ad-details-image" src="/images/table.webp" />
+                  <img className="ad-details-image" src={ads.imgUrl} />
                 </div>
                 <div className="ad-details-info">
-                  <div className="ad-details-price">{foundAd.price}</div>
+                  <div className="ad-details-price">{ads.price} €</div>
                   <div className="ad-details-description">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Non, iusto! Voluptates repudiandae asperiores quia.
-                    Blanditiis repellat minima adipisci, aliquam nulla unde quam
-                    architecto eligendi, voluptatum, perspiciatis laudantium sed
-                    eos voluptates?
+                    {ads.description}
                   </div>
                   <hr className="separator" />
                   <div className="ad-details-owner">
-                    Annoncée publiée par <b>Serge</b> aujourd'hui (9:32).
+                    Annoncée publiée par <b>Serge</b> le {ads.createdAt}
                   </div>
                   <a
                     href="mailto:serge@serge.com"
