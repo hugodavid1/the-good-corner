@@ -16,8 +16,6 @@ export class AdResolver {
     return Ads; //réponse de la requête
   }
 
-  // this is a test
-
    @Mutation(() => Ad)
   async createAd(@Arg("data", () => AdInput) data: AdInput): Promise<Ad> {
     const newAd = new Ad();
