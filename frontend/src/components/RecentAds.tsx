@@ -3,10 +3,16 @@ import Link from "next/link";
 import { AdCard, AdCardType } from "./AdCard";
 import axios from "axios";
 import { API_URL } from "@/config";
+import { queryAllAds } from "@/graphql/ads";
+import { useQuery } from "@apollo/client";
 
 export function RecentAds(): React.ReactNode {
-  const [ads, setAds] = useState([] as AdCardType[]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const { data, error, loading } = useQuery<{ allAds: AdCardType[] }>(
+    queryAllAds
+  );
+  const ads = data?.allAds || [];
+
   const handleRedirect = (id: number) => {
     console.log(id);
     window.location.href = "/ads/new/" + id;

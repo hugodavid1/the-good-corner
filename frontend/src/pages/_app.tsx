@@ -8,17 +8,18 @@ import {
   gql,
 } from "@apollo/client";
 import { queryAllCategories } from "@/graphql/categories";
+import { queryAllAds } from "@/graphql/ads";
 
 const client = new ApolloClient({
   uri: "http://localhost:5000",
   cache: new InMemoryCache(),
 });
 
-client
-  .query({
-    query: queryAllCategories,
-  })
-  .then((result) => console.log(result));
+// client
+//   .query({
+//     query: [queryAllCategories, queryAllAds],
+//   })
+//   .then((result) => console.log(result));
 
 function App({ Component, pageProps }: AppProps) {
   return (

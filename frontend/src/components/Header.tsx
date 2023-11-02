@@ -7,10 +7,7 @@ export function Header() {
   const { data, error, loading } = useQuery<{ allCategories: CategoryType[] }>(
     queryAllCategories
   );
-
   const categories = data?.allCategories || [];
-
-  console.log(categories.map((item) => item.id));
 
   return (
     <>
