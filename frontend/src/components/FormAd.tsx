@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { CategoryType } from "./Category";
 import axios from "axios";
 import { API_URL } from "@/config";
+import { useQuery } from "@apollo/client";
+import { queryAllCategories } from "@/graphql/categories";
 
 export type AdFormData = {
   title: string;
@@ -28,7 +30,6 @@ const FormAd: React.FC<FormAdProps> = ({
   onSubmit,
   buttonText,
 }) => {
-  const [categories, setCategories] = useState<CategoryType[]>([]);
   const [error, setError] = useState<"title" | "price">();
   const [hasBeenSent, setHasBeenSent] = useState(false);
 
@@ -37,16 +38,12 @@ const FormAd: React.FC<FormAdProps> = ({
   const [imgUrl, setImgUrl] = useState("");
   const [price, setPrice] = useState(0);
   const [categoryId, setCategoryId] = useState<null | number>(null);
-
-  //   Fetching categorie from API
-  async function fetchCategories() {
-    const result = await axios.get<CategoryType[]>(`${API_URL}/categories`);
-    setCategories(result.data);
-  }
-
-  useEffect(() => {
-    fetchCategories();
-  }, []);
+  const {
+    data: dataCategory,
+    error: errorCategory,
+    loading: loadingCategory,
+  } = useQuery<{ allCategories: CategoryType[] }>(queryAllCategories);
+  const categories = dataCategory?.allCategories || [];
 
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

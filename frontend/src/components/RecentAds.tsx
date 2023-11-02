@@ -1,10 +1,7 @@
-import React, { use, useEffect, useState } from "react";
-import Link from "next/link";
+import React, { useState } from "react";
 import { AdCard, AdCardType } from "./AdCard";
-import axios from "axios";
-import { API_URL } from "@/config";
-import { queryAllAds } from "@/graphql/ads";
-import { useQuery } from "@apollo/client";
+import { mutationDeleteAd, queryAdById, queryAllAds } from "@/graphql/ads";
+import { useQuery, useMutation } from "@apollo/client";
 
 export function RecentAds(): React.ReactNode {
   const [totalPrice, setTotalPrice] = useState(0);
@@ -12,7 +9,30 @@ export function RecentAds(): React.ReactNode {
     queryAllAds
   );
   const ads = data?.allAds || [];
+  const [doDelete] = useMutation(mutationDeleteAd, {
+    refetchQueries: [queryAllAds],
+  });
 
+  // function getAdById(id: any) {
+  //   const { data, loading, error } = useQuery(queryAdById, {
+  //     variables: { id },
+  //   });
+  //   return data.ad;
+  // }
+
+  async function deleteAd(id: number) {
+    try {
+      console.log(id);
+      const res = await doDelete({
+        variables: {
+          id: id,
+        },
+      });
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
   const handleRedirect = (id: number) => {
     console.log(id);
     window.location.href = "/ads/new/" + id;
@@ -95,7 +115,7 @@ export function RecentAds(): React.ReactNode {
                 <button
                   type="button"
                   className="button"
-                  // onClick={() => handleDeleteAds(item.id)}
+                  onClick={() => deleteAd(item.id)}
                 >
                   Supprimer cette annonce
                 </button>

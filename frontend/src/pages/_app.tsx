@@ -15,12 +15,6 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-// client
-//   .query({
-//     query: [queryAllCategories, queryAllAds],
-//   })
-//   .then((result) => console.log(result));
-
 function App({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={client}>
