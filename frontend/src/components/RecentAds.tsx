@@ -17,43 +17,43 @@ export function RecentAds(): React.ReactNode {
     setTotalPrice(newTotalPrice);
   }
 
-  async function getAllRecendsAds() {
-    try {
-      const res = await axios.get(`${API_URL}/ads`);
-      console.log(res.data);
-      setAds(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  // async function getAllRecendsAds() {
+  //   try {
+  //     const res = await axios.get(`${API_URL}/ads`);
+  //     console.log(res.data);
+  //     setAds(res.data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
 
-  useEffect(() => {
-    getAllRecendsAds();
-  }, []);
+  // useEffect(() => {
+  //   getAllRecendsAds();
+  // }, []);
 
-  const handleDeleteAds = async (id: number) => {
-    console.log(id);
-    try {
-      const res = await axios.delete(`${API_URL}/ads/${id}`);
-      const refreshAd = ads.filter((ad) => ad.id !== id);
-      setAds(refreshAd);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const handleDeleteAds = async (id: number) => {
+  //   console.log(id);
+  //   try {
+  //     const res = await axios.delete(`${API_URL}/ads/${id}`);
+  //     const refreshAd = ads.filter((ad) => ad.id !== id);
+  //     setAds(refreshAd);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  const handleEditAd = async (id: number) => {
-    console.log(id);
-    try {
-      const res = await axios.patch(`${API_URL}/ads/${id}`);
-      const refreshAd = ads.find((ad) => ad.id === id);
-      if (refreshAd) {
-        let path = `/ads/${id}`;
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const handleEditAd = async (id: number) => {
+  //   console.log(id);
+  //   try {
+  //     const res = await axios.patch(`${API_URL}/ads/${id}`);
+  //     const refreshAd = ads.find((ad) => ad.id === id);
+  //     if (refreshAd) {
+  //       let path = `/ads/${id}`;
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   return (
     <main className="main-content">
@@ -89,7 +89,7 @@ export function RecentAds(): React.ReactNode {
                 <button
                   type="button"
                   className="button"
-                  onClick={() => handleDeleteAds(item.id)}
+                  // onClick={() => handleDeleteAds(item.id)}
                 >
                   Supprimer cette annonce
                 </button>

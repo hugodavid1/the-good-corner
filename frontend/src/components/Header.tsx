@@ -1,22 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { Category, CategoryProps } from "./Category";
-import axios from "axios";
-import { API_URL } from "@/config";
+import React from "react";
+import { Category, CategoryType } from "./Category";
+import { queryAllCategories } from "@/graphql/categories";
+import { useQuery } from "@apollo/client";
 
 export function Header() {
-  const [categories, setCategories] = useState<CategoryProps[]>([]);
+  const { data, error, loading } = useQuery<{ allCategories: CategoryType[] }>(
+    queryAllCategories
+  );
 
-  useEffect(() => {
-    async function getCategories() {
-      try {
-        const response = await axios.get(`${API_URL}/categories`);
-        setCategories(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    getCategories();
-  }, []);
+  const categories = data?.allCategories || [];
+
+  console.log(categories.map((item) => item.id));
+
   return (
     <>
       <header className="header">
