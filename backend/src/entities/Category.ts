@@ -27,10 +27,13 @@ export class Category extends BaseEntity {
 }
 
 @InputType()
-export class CategoryInput {
+export class CategoryCreateInput {
   @Field()
   name!: string;
+}
 
-  @Field(() => [ObjectId])
-  ads!: ObjectId[];
+@InputType()
+export class CategoryUpdateInput {
+  @Field({ nullable: true })
+  name!: string;
 }
