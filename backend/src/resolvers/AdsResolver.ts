@@ -76,7 +76,15 @@ export class AdResolver {
     const errors = await validate(newAd);
     if (errors.length === 0) {
       await newAd.save();
-      return newAd;
+      return await Ad.findOneOrFail({
+      where: {
+        id : newAd.id /* première id = id de la bdd, deuxième id = id de la requête */
+      },
+      relations: {
+        tags: true,
+        category: true,
+      }
+    });;
     } else {
       throw new Error(`Error occured: ${JSON.stringify(errors)}`);
     }
@@ -114,7 +122,7 @@ export class AdResolver {
   }
 
   @Mutation(() => Ad, {nullable: true})
-  async deleteAd(@Arg("id", () => Int) id: number): Promise<Ad | null> {
+  async deleteAd(@Arg("id", () => ID) id: number): Promise<Ad | null> {
     const ad = await Ad.findOne({
       where: {
         id : id /* première id = id de la bdd, deuxième id = id de la requête */

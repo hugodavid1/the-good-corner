@@ -8,7 +8,6 @@ import {
 import { Length } from "class-validator";
 import { Ad } from "./Ad";
 import { Field, ID, InputType, ObjectType } from "type-graphql";
-import { ObjectId } from "./ObjectId";
 
 @Entity()
 @ObjectType()
@@ -29,11 +28,13 @@ export class Tag extends BaseEntity {
 
 
 @InputType()
-export class TagInput {
-  
+export class TagCreateInput {
   @Field()
   name!: string;
+}
 
-  @Field(() => [ObjectId])
-  ads!: ObjectId[];
+@InputType()
+export class TagUpdateInput {
+  @Field({ nullable: true })
+  name!: string;
 }
