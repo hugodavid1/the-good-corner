@@ -13,7 +13,7 @@ export type AdFormData = {
   imgUrl: string;
   price: number;
   category: { id: number } | null;
-  tags: [];
+  tags: [{ id: number }] | []; // A vérifier lors de la création/modif car c'est une many to many
 };
 
 type AdFormProps = {
@@ -46,7 +46,6 @@ export default function FormAd(props: AdFormProps) {
     loading: tagsLoading,
   } = useQuery<{ items: TagType[] }>(findAllTags);
   const tags = dataTags?.items || [];
-  console.log(tags);
 
   const [doCreate, { loading: createLoading }] = useMutation(mutationCreateAd, {
     refetchQueries: [queryAllAds],
