@@ -1,17 +1,17 @@
-import { API_URL } from "@/config";
-import axios from "axios";
+import { CategoryType } from "./Category";
 
-export type AdCardType = {
+export type AdType = {
   id: number;
   link: string;
   imgUrl: string;
-  description?: string;
-  createdAt?: string;
   title: string;
   price: number;
+  createdAt: string;
+  description: string;
+  category: CategoryType | null;
 };
 
-export type AdCardProps = AdCardType & {
+export type AdCardProps = AdType & {
   onDelete?: () => void;
 };
 

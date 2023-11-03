@@ -8,3 +8,11 @@ query AllCategories {
   }
 }
 `;
+
+export const mutationDeleteCategory = gql`
+mutation DeleteCategory($id: ID!) {
+  deleteCategory(id: $id) {
+    id
+  }
+}
+`;
