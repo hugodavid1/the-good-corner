@@ -1,46 +1,38 @@
 import { useRouter } from "next/router";
 import { Layout } from "@/components/Layout";
-import { AdCardType } from "@/components/AdCard";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { API_URL } from "@/config";
+import { AdType } from "@/components/AdCard";
+import { useQuery } from "@apollo/client";
+import { AdById } from "@/graphql/ads";
 
 const AdDetailComponent = () => {
-  const [ads, setAds] = useState<AdCardType>();
   const router = useRouter();
-  const id = router.query.id;
-
-  async function fetchAd() {
-    const result = await axios.get<AdCardType>(`${API_URL}/ads/${id}`);
-    setAds(result.data);
-  }
-
-  useEffect(() => {
-    // mounting
-    if (typeof id === "string") {
-      fetchAd();
-    }
-  }, [id]);
+  const adId = router.query.id;
+  const { data } = useQuery<{ item: AdType }>(AdById, {
+    variables: {
+      adByIdId: adId,
+    },
+    skip: adId === undefined,
+  });
+  const ad = data ? data.item : null;
+  console.log(adId);
 
   return (
     <>
       <Layout title="Ad Detail">
         <div className="main-content">
-          {ads && (
+          {ad && (
             <>
-              <h2 className="ad-details-title">{ads.title}</h2>
+              <h2 className="ad-details-title">{ad.title}</h2>
               <section className="ad-details">
                 <div className="ad-details-image-container">
-                  <img className="ad-details-image" src={ads.imgUrl} />
+                  <img className="ad-details-image" src={ad.imgUrl} />
                 </div>
                 <div className="ad-details-info">
-                  <div className="ad-details-price">{ads.price} €</div>
-                  <div className="ad-details-description">
-                    {ads.description}
-                  </div>
+                  <div className="ad-details-price">{ad.price} €</div>
+                  <div className="ad-details-description">{ad.description}</div>
                   <hr className="separator" />
                   <div className="ad-details-owner">
-                    Annoncée publiée par <b>Serge</b> le {ads.createdAt}
+                    Annoncée publiée par <b>Serge</b> le {ad.createdAt}
                   </div>
                   <a
                     href="mailto:serge@serge.com"

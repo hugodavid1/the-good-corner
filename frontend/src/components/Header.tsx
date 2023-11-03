@@ -41,11 +41,12 @@ export function Header() {
           </a>
         </div>
         <nav className="categories-navigation">
-          {categories.map((item, index) => (
-            <>
-              <Category key={item.id} id={item.id} name={item.name} />{" "}
+          {loading === true && <p>Chargement</p>}
+          {categories.map((category, index) => (
+            <React.Fragment key={category.id}>
+              <Category name={category.name} id={category.id} />{" "}
               {index < categories.length - 1 && "•"}
-            </>
+            </React.Fragment>
           ))}
         </nav>
       </header>

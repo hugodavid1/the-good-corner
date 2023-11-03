@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const queryAllAds = gql`
-query AllCategories {
+ query AllCategories {
   allCategories {
     id
     name
@@ -25,20 +25,16 @@ query AllCategories {
 }
 `;
 
-export const queryAdById = gql`
-query adById($id: ID!) {
-  items: adById(id: $id) {
-    id
-    price
+export const AdById = gql`
+  query AdById($adByIdId: ID!) {
+   item: adById(id: $adByIdId) {
     title
+    price
     imgUrl
+    id
     description
     createdAt
     category {
-      id
-      name
-    }
-    tags {
       id
       name
     }
@@ -56,7 +52,7 @@ mutation DeleteAd($id: ID!) {
 
 export const mutationCreateAd = gql`
 mutation Mutation($data: AdCreateInput!) {
-  createAd(data: $data) {
+  item: createAd(data: $data) {
     id
     title
     price
@@ -73,4 +69,12 @@ mutation Mutation($data: AdCreateInput!) {
     }
   }
 }
+`;
+
+export const mutationUpdateAd = gql`
+  mutation updateAd($id: ID!, $data: AdUpdateInput!) {
+    updateAd(id: $id, data: $data) {
+      id
+    }
+  }
 `;
