@@ -5,10 +5,10 @@ COPY package.json package.json
 RUN npm i
 
 COPY src src
-#a supprimer
+COPY public public
+COPY next-env.d.ts next-env.d.ts
+COPY next.config.js next.config.js
 COPY tsconfig.json tsconfig.json
 
-CMD npm run start
-
-#docker build -t backend .
-#docker run -p 5000:5000 backend
+EXPOSE 3000
+CMD npm run dev
