@@ -30,21 +30,6 @@ export class AdResolver {
             queryWhere.price = LessThanOrEqual(Number(where.priceLte));
         } /* Si priceLte est set on ajoute son contenu dans au champ price de la base de donnée */
 
-        /* const order: any = {};
-        if (
-          typeof req.query.orderByTitle === "string" &&
-          ["ASC", "DESC"].includes(req.query.orderByTitle)
-        ) {
-          order.title = req.query.orderByTitle; // req.query.orderByTitle = ASC | DESC
-        }
-
-        if (
-          typeof req.query.orderByPrice === "string" &&
-          ["ASC", "DESC"].includes(req.query.orderByPrice)
-        ) {
-          order.price = req.query.orderByPrice; // req.query.orderByTitle = ASC | DESC
-        } */
-
         const ads = await Ad.find({
             take: take ?? 15,
             skip: skip ?? 0,
@@ -56,6 +41,34 @@ export class AdResolver {
             },
         });
         return ads;
+    }
+
+    @Query(() => Int)
+    async allAdsCount(
+        @Arg("where", { nullable: true }) where?: AdsWhere
+    ): Promise<number> {
+        const queryWhere: any = {};
+
+        if (where?.categoryIn) {
+            queryWhere.category = { id: In(where.categoryIn) };
+        }
+
+        if (where?.searchTitle) {
+            queryWhere.title = Like(`%${where.searchTitle}%`);
+        }
+
+        if (where?.priceGte) {
+            queryWhere.price = MoreThanOrEqual(Number(where.priceGte));
+        }
+
+        if (where?.priceLte) {
+            queryWhere.price = LessThanOrEqual(Number(where.priceLte));
+        }
+
+        const count = await Ad.count({
+            where: queryWhere,
+        });
+        return count;
     }
 
     @Query(() => Ad, {nullable: true})
