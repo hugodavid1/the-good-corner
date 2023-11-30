@@ -98,6 +98,7 @@ export default function FormAd(props: AdFormProps) {
   useEffect(() => {
     if (props.ad) {
       setTitle(props.ad.title);
+      // @ts-ignore
       setDescription(props.ad.description);
       setPrice(props.ad.price);
       setImgUrl(props.ad.imgUrl);

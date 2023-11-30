@@ -4,11 +4,13 @@ WORKDIR /app
 COPY package.json package.json
 RUN npm i
 
-COPY src src
-COPY public public
-COPY next-env.d.ts next-env.d.ts
-COPY next.config.js next.config.js
 COPY tsconfig.json tsconfig.json
+#COPY .eslintrc.json .eslintrc.json
+COPY next.config.js next.config.js
+COPY postcss.config.js postcss.config.js
+COPY tailwind.config.js tailwind.config.js
+COPY public public
+COPY src src
+RUN npm run build
 
-EXPOSE 3000
-CMD npm run dev
+CMD npm run start

@@ -1,4 +1,5 @@
 import { CategoryType } from "./Category";
+import React from "react";
 
 export type AdType = {
   id: number;
@@ -6,9 +7,9 @@ export type AdType = {
   imgUrl: string;
   title: string;
   price: number;
-  createdAt: string;
-  description: string;
-  category: CategoryType | null;
+  createdAt?: string;
+  description?: string;
+  category?: CategoryType | null;
 };
 
 export type AdCardProps = AdType & {

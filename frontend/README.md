@@ -3,14 +3,26 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ## Getting Started
 
 First, run the development server:
+Frontend:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
+
+Backend:
+
+```bash
+npm run start
+```
+
+Docker command build containers:
+
+```bash
+docker compose up --build --force-recreate
+
+```
+
+
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 

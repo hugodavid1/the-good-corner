@@ -1,4 +1,4 @@
-import { AdCard, AdCardType } from "@/components/AdCard";
+import { AdCard, AdType } from "@/components/AdCard";
 import { CategoryType } from "@/components/Category";
 import { Layout } from "@/components/Layout";
 import { API_URL } from "@/config";
@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 const FindAnnonceByCategory = () => {
-  const [ads, setAds] = useState([] as AdCardType[]);
+  const [ads, setAds] = useState([] as AdType[]);
   const [currentCategory, setCurrentCategory] = useState([] as CategoryType[]);
   const router = useRouter();
   const id = router.query.id;

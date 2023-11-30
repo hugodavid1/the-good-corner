@@ -1,22 +1,18 @@
 import { gql } from "@apollo/client";
 
 export const queryAllAds = gql`
- query AllCategories {
-  allCategories {
+query AllAds($take: Int, $skip: Int) {
+  items: allAds(take: $take, skip: $skip) {
     id
-    name
-  }
-  allAds {
     title
-    tags {
-      name
-      id
-    }
     price
     imgUrl
-    id
     description
     createdAt
+    tags {
+      id
+      name
+    }
     category {
       id
       name
