@@ -3,22 +3,14 @@ services:
     build: ./backend
     ports:
       - 5000:5000
-    volumes:
-      - ./backend/src:/app/src
     env_file: ./backend/.env
   db:
     image: postgres
     ports:
       - 5432:5432 # local:container
-    volumes:
-      - /var/lib/postgresql/data
     env_file: .env
   frontend:
     build: ./frontend
     command: npm run dev
     ports:
       - 3000:3000
-    volumes:
-      - ./frontend/src:/app/src
-      - ./frontend/public:/app/public
-#    env_file: ./frontend/.env
