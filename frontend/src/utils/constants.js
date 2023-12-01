@@ -1,7 +1,8 @@
 export const _COLORS = {
-  primary: "#f4a32b",
-  secondary: "#927e6b",
-  third: "#f5f5f5",
+  primary: "#24524b",
+  secondary: "#eaad8b",
+  accent: "#d1e6d7",
+  darkMode: "#171b0e",
 };
 
 export const CATEGORY = {

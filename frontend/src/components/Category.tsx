@@ -1,3 +1,4 @@
+import { _COLORS } from "@/utils/constants";
 import Link from "next/link";
 
 export type CategoryType = {
@@ -9,7 +10,7 @@ export type CategoryProps = CategoryType;
 
 export function Category(props: CategoryProps): React.ReactNode {
   return (
-    <Link href={`/category/${props.id}`} className="category-navigation-link">
+    <Link href={`/category/${props.id}`} style={{ color: _COLORS.primary }}>
       {props.name}
     </Link>
   );

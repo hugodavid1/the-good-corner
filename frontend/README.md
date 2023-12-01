@@ -16,4 +16,5 @@ docker compose up --build --force-recreate
 ```
 
 TODO:
-Mettre modal pour ajouter une catégorie
+Créer formulaire catégorie dans Header avec CustomModal
+Refaire formulaire annonce

@@ -9,6 +9,12 @@ import {
 import { useQuery, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import Pagination from "@/components/Pagination";
+import { Button } from "flowbite-react";
+import { TbBasketPlus } from "react-icons/tb";
+import { MdModeEditOutline } from "react-icons/md";
+import { AiFillDelete } from "react-icons/ai";
+
+import { _COLORS } from "@/utils/constants";
 
 type RecentAdsProps = {
   categoryId?: number;
@@ -96,31 +102,55 @@ export function RecentAds(props: RecentAdsProps): React.ReactNode {
               category={item.category}
               createdAt={item.createdAt}
             />
-            <div className="row-button-ad flex flex-wrap gap-2 mt-2">
-              {" "}
-              {/* Flex et espacement pour les boutons */}
-              <button
-                className="button"
+            <div className="row-button-ad flex flex-wrap mt-2">
+              <Button
+                pill
+                size={"small"}
                 onClick={() => {
                   addToTotal(item.price);
                 }}
+                style={{
+                  backgroundColor: _COLORS.primary,
+                  color: "white",
+                }}
               >
-                Ajouter {item.price}€ au total
-              </button>
-              <button
-                type="button"
-                className="button"
+                <TbBasketPlus className="h-8 w-8 px-1 mx-2 " />
+                <div style={{ margin: "0 15px 0 0px" }}>Ajouter</div>
+              </Button>
+              <Button
+                pill
                 onClick={() => handleRedirectEdit(item.id)}
+                style={{
+                  color: _COLORS.primary,
+                }}
               >
-                Modifier l'annonce
-              </button>
-              <button
-                type="button"
-                className="button"
+                <div
+                  style={{
+                    border: `1px solid ${_COLORS.primary}`,
+                    borderRadius: "25px",
+                    padding: "7px",
+                  }}
+                >
+                  <MdModeEditOutline className="h-6 w-6" />
+                </div>
+              </Button>
+              <Button
+                pill
                 onClick={() => deleteAd(item.id)}
+                style={{
+                  color: _COLORS.primary,
+                }}
               >
-                Supprimer cette annonce
-              </button>
+                <div
+                  style={{
+                    border: `1px solid ${_COLORS.primary}`,
+                    borderRadius: "25px",
+                    padding: "7px",
+                  }}
+                >
+                  <AiFillDelete className="h-6 w-6" />
+                </div>
+              </Button>
             </div>
           </div>
         ))}

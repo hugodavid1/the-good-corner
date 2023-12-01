@@ -61,7 +61,7 @@ const Pagination: React.FC<PaginationProps> = ({
         type="button"
         disabled={page === pagesCount - 1}
         onClick={() => setPage(Math.min(page + 1, pagesCount))}
-        className="text-xs text-white bg-yellow-500 hover:bg-yellow-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2 py=1 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        className=" text-white bg-yellow-500 hover:bg-yellow-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2 py=1 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       >
         <svg
           className="w-3 h-2"

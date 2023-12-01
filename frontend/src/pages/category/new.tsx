@@ -1,5 +1,6 @@
 import FormCategory from "@/components/FormCategory";
 import { Layout } from "@/components/Layout";
+import { Button } from "flowbite-react";
 import React from "react";
 
 const newCategory: React.FC = () => {

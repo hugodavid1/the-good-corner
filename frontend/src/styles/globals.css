@@ -37,7 +37,7 @@ h1 {
   justify-content: space-between;
   align-items: center;
   gap: 10px;
-  color: #ffa41b;
+  color: #f9ba67;
 }
 
 .categories-navigation {
@@ -59,15 +59,15 @@ h1 {
   height: 40px;
   padding: 8px;
   border-radius: 8px;
-  border: 2px solid #ffa41b;
+  border: 2px solid #24524b;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 3px;
   font-size: 12px;
   font-weight: bold;
-  color: #ffa41b;
-  background-color: white;
+  color: white;
+  background-color: #24524b;
   cursor: pointer;
 }
 
@@ -76,8 +76,9 @@ h1 {
 }
 
 .button-primary {
-  background-color: #ffa41b;
+  background-color: #f9ba67;
   color: white;
+  border: #f9ba67;
 }
 
 .text-field-with-button {
@@ -98,7 +99,7 @@ h1 {
   height: 40px;
   background-color: white;
   padding: 8px;
-  border: 2px solid #ffa41b;
+  border: 2px solid #eaad8b;
   border-radius: 8px;
   font-size: 12px;
   font-family: inherit;
@@ -210,8 +211,6 @@ h1 {
 
 .row-button-ad {
   display: flex;
-  justify-content: space-between;
-  gap: 12px;
 }
 
 /* Style formulaire Annonce */
@@ -220,7 +219,7 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  border-color: #ffa41b;
+  border-color: #f9ba67;
 }
 
 .text-field-form {
@@ -228,7 +227,7 @@ h1 {
   width: 100%;
   background-color: white;
   padding: 8px;
-  border: 2px solid #ffa41b;
+  border: 2px solid #f9ba67;
   border-radius: 8px;
   font-size: 12px;
   font-family: inherit;
@@ -240,14 +239,14 @@ h1 {
   height: 40px;
   padding: 8px;
   border-radius: 8px;
-  border: 2px solid #ffa41b;
+  border: 2px solid #83b677;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 3px;
   font-size: 12px;
   font-weight: bold;
-  color: #ffa41b;
+  color: #83b677;
   background-color: white;
   cursor: pointer;
 }
@@ -264,7 +263,7 @@ h1 {
   background-color: #f2f2f2; /* Couleur d'arrière-plan blanc clair */
   padding: 20px; /* Espace entre le contenu et les bords du div */
   border-radius: 10px; /* Coins arrondis */
-  border: 3px solid #ffa41b;
+  border: 3px solid #83b677;
   width: 70%; /* La largeur dépend du contenu */
   margin: 0 auto; /* Centrer le div */
 }
