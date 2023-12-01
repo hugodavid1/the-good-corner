@@ -3,3 +3,7 @@ export const _COLORS = {
   secondary: "#927e6b",
   third: "#f5f5f5",
 };
+
+export const CATEGORY = {
+  h1: "Création d'une catégorie",
+};

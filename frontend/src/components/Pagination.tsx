@@ -20,7 +20,7 @@ const Pagination: React.FC<PaginationProps> = ({
         onClick={() => setPage(Math.max(page - 1, 0))}
         className="text-xs text-white bg-yellow-500
            hover:bg-yellow-700 focus:ring-4 focus:outline-none
-            focus:ring-blue-300 font-medium rounded-lg text-sm 
+            focus:ring-blue-300 font-medium rounded-lg 
             p-2 py=1 text-center inline-flex items-center me-2
              dark:bg-blue-600 dark:hover:bg-blue-700
               dark:focus:ring-blue-800"

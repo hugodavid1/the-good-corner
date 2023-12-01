@@ -2,11 +2,13 @@ import React from "react";
 import { Category, CategoryType } from "./Category";
 import { queryAllCategories } from "@/graphql/categories";
 import { useQuery } from "@apollo/client";
+import { useRouter } from "next/router";
 
 export function Header() {
   const { data, error, loading } = useQuery<{ allCategories: CategoryType[] }>(
     queryAllCategories
   );
+  const router = useRouter();
   const categories = data?.allCategories || [];
 
   return (
@@ -35,8 +37,44 @@ export function Header() {
               </svg>
             </button>
           </form>
+          <button
+            type="button"
+            // onClick={() => router.push("/category/new")}
+            data-modal-target="authentication-modal"
+            data-modal-toggle="authentication-modal"
+            className=" text-white bg-gray-600 hover:bg-gray-400
+             focus:ring-4 focus:outline-none
+              focus:ring-blue-300 font-medium rounded-lg text-sm 
+              px-2 py-1.5 text-center inline-flex items-center me-2
+              space-x-1 border-2 border-gray-600 hover:border-gray-400"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7 12L12 12M12 12L17 12M12 12V7M12 12L12 17"
+                stroke="#FFFFFF"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <circle
+                cx="12"
+                cy="12"
+                r="9"
+                stroke="#FFFFFF"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span>Nouvelle catégorie</span>
+          </button>
           <a href="/ads/new" className="button link-button">
-            <span className="mobile-short-label">Publier</span>
             <span className="desktop-long-label">Publier une annonce</span>
           </a>
         </div>
