@@ -10,6 +10,8 @@ npm run start
 
 Docker command build containers:
 
+En racine du projet :
+
 ```bash
 docker compose up --build --force-recreate
 
