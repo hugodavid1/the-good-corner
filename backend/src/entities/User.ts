@@ -1,13 +1,6 @@
-import {
-  BaseEntity,
-  Column,
-  Entity,
-  ManyToMany,
-  PrimaryGeneratedColumn,
-} from "typeorm";
-import { Length } from "class-validator";
-import { Ad } from "./Ad";
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { Field, ID, InputType, ObjectType } from "type-graphql";
+import { IsEmail, Matches } from "class-validator";
 
 @Entity()
 @ObjectType()
@@ -16,14 +9,12 @@ export class User extends BaseEntity {
   @Field(() => ID)
   id!: number;
 
-  @Column({ length: 100 })
-  @Length(3, 100)
+  @Column({ length: 255, unique: true })
   @Field()
+  @IsEmail()
   email!: string;
 
-  @Column({ length: 100 })
-  @Length(3, 100)
-  @Field()
+  @Column({ length: 255 })
   hashedPassword!: string;
 }
 
@@ -33,5 +24,6 @@ export class UserCreateInput {
   email!: string;
 
   @Field()
+  @Matches(/^.{8,50}$/)
   password!: string;
 }

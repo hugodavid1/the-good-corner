@@ -7,10 +7,12 @@ import { dataSource } from "./datasource";
 import AdResolver from "./resolvers/AdsResolver";
 import CategoriesResolver from "./resolvers/CategoriesResolver";
 import UsersResolver from "./resolvers/Users";
+import { authChecker } from "./auth";
 
 async function start() {
   const schema = await buildSchema({
     resolvers: [TagResolver, AdResolver, CategoriesResolver, UsersResolver],
+    authChecker: authChecker,
   });
   const server = new ApolloServer({
     schema,
@@ -20,6 +22,12 @@ async function start() {
   await startStandaloneServer(server, {
     listen: {
       port: 5000,
+    },
+    context: async (args) => {
+      return {
+        req: args.req,
+        res: args.res,
+      };
     },
   });
 
