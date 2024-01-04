@@ -42,7 +42,6 @@ export function RecentAds(props: RecentAdsProps): React.ReactNode {
   const count = data ? data.count : 0;
 
   const pagesCount = Math.ceil(count / pageSize); /* nombre de page dispo */
-  console.log(count);
   /* delete ad */
   const [doDelete] = useMutation(mutationDeleteAd, {
     refetchQueries: [queryAllAds],

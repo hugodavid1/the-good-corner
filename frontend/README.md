@@ -20,3 +20,6 @@ docker compose up --build --force-recreate
 TODO:
 Créer formulaire catégorie dans Header avec CustomModal
 Refaire formulaire annonce
+Ajouter un interface pour les types
+Faire la modif sur le bouton deconnexion qui ne s'enlève pas lors de la déconnexion
+ajouter un bouton espace utilisateur

@@ -1,4 +1,8 @@
-import { mutationSignUp } from "@/graphql/users";
+import {
+  getCurrentUser,
+  mutationSignIn,
+  mutationSignUp,
+} from "@/graphql/users";
 import { _COLORS } from "@/utils/constants";
 import { useMutation } from "@apollo/client";
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
@@ -12,23 +16,21 @@ function SignUp(): React.ReactNode {
   const [password, setPassword] = useState<string>("superSecretPassword");
   const [remember, setRemember] = useState<boolean>(false);
 
-  const [doSignUp, { data, loading, error }] = useMutation(mutationSignUp);
+  const [doSignUp, { data, loading, error }] = useMutation(mutationSignIn, {
+    refetchQueries: [getCurrentUser],
+  });
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     doSignUp({
       variables: {
-        data: {
-          email,
-          password,
-        },
+        email,
+        password,
       },
     }).then((res) => {
       if (res.data?.item) {
-        router.replace("/signin");
+        router.replace("/");
       }
-
-      console.log(router.replace("/signin"));
     });
   };
 

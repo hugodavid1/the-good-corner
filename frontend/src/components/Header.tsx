@@ -1,20 +1,42 @@
 import React, { useRef, useState } from "react";
 import { Category, CategoryType } from "./Category";
 import { queryAllCategories } from "@/graphql/categories";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { Button } from "flowbite-react";
 import { _COLORS } from "../utils/constants";
 import CustomModal from "./CustomModal";
+import { getCurrentUser, mutationSignOut } from "@/graphql/users";
+
+export type MeType = {
+  id: number;
+  email: string;
+};
 
 export function Header() {
   const { data, error, loading } = useQuery<{ allCategories: CategoryType[] }>(
     queryAllCategories
   );
+
+  const {
+    data: UserData,
+    error: UserError,
+    loading: UserLoading,
+  } = useQuery<{ me: MeType }>(getCurrentUser);
+
   const [openModal, setOpenModal] = useState(false);
   const emailInputRef = useRef<HTMLInputElement>(null);
   const categories = data?.allCategories || [];
   const router = useRouter();
+
+  const [doSignOut] = useMutation(mutationSignOut, {
+    refetchQueries: [{ query: getCurrentUser }],
+  });
+
+  const logout = async () => {
+    await doSignOut();
+    router.replace("/");
+  };
 
   return (
     <>
@@ -64,9 +86,19 @@ export function Header() {
           >
             Publier une annonce
           </Button>
-          {/* <a href="/ads/new" className="button link-button">
-            <span className="desktop-long-label">Publier une annonce</span>
-          </a> */}
+          {UserData?.me && (
+            <Button
+              pill
+              style={{
+                backgroundColor: _COLORS.secondary,
+                color: _COLORS.primary,
+              }}
+              onClick={logout}
+            >
+              {" "}
+              Déconnexion
+            </Button>
+          )}
         </div>
         <nav className="categories-navigation">
           {loading === true && <p>Chargement</p>}
