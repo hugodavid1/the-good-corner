@@ -1,9 +1,18 @@
-import { Arg, Ctx, ID, Mutation, Query, Resolver } from "type-graphql";
+import {
+  Arg,
+  Authorized,
+  Ctx,
+  ID,
+  Mutation,
+  Query,
+  Resolver,
+} from "type-graphql";
 import { validate } from "class-validator";
 import { User, UserCreateInput } from "../entities/User";
 import argon2 from "argon2";
 import JWT from "jsonwebtoken";
 import Cookies from "cookies";
+import { ContextType } from "../auth";
 
 @Resolver(User)
 export class UsersResolver {
@@ -19,6 +28,12 @@ export class UsersResolver {
       where: { id: id },
     });
     return user;
+  }
+
+  @Authorized()
+  @Query(() => User)
+  async me(@Ctx() context: ContextType): Promise<User> {
+    return context.user as User;
   }
 
   @Mutation(() => User)
@@ -58,7 +73,7 @@ export class UsersResolver {
             exp: Math.floor(Date.now() / 1000) + 60 * 60 * 2,
             UserId: existingUser.id,
           },
-          "b8c6f697-deb0-44a5-92c7-397b7bc4ef81"
+          process.env.JWT_SECRET || "supersecret"
         );
         const cookies = new Cookies(ctx.req, ctx.res);
         cookies.set("token", token, {

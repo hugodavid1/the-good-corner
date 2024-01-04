@@ -1,8 +1,15 @@
 import Cookies from "cookies";
 import jwt from "jsonwebtoken";
 import { AuthChecker } from "type-graphql";
+import { User } from "./entities/User";
 
-export const authChecker: AuthChecker<{ req: any; res: any }> = (
+export type ContextType = {
+  req: any;
+  res: any;
+  user?: User;
+};
+
+export const customAuthChecker: AuthChecker<ContextType> = async (
   { root, args, context, info },
   roles
 ) => {
@@ -10,17 +17,29 @@ export const authChecker: AuthChecker<{ req: any; res: any }> = (
   const token = cookies.get("token");
 
   if (!token) {
-    console.error("No token found");
+    console.error("missing token");
     return false;
   }
+
   try {
-    const decoded = jwt.verify(
-      token,
-      "b8c6f697-deb0-44a5-92c7-397b7bc4ef81"
-    ) as { exp: number; UserId: number };
-    return true;
-  } catch (error) {
-    console.log(error);
+    const payload = jwt.verify(token, process.env.JWT_SECRET || "supersecret");
+    console.log(payload);
+    if (typeof payload === "object" && "UserId" in payload) {
+      const user = await User.findOneBy({ id: payload.UserId });
+
+      if (user !== null) {
+        context.user = Object.assign(user, { hashedPassword: undefined });
+        return true;
+      } else {
+        console.error("user not found");
+        return false;
+      }
+    } else {
+      console.error("invalid token, msising userid");
+      return false;
+    }
+  } catch {
+    console.error("invalid token");
     return false;
   }
 };

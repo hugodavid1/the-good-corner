@@ -1,6 +1,14 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { Field, ID, InputType, ObjectType } from "type-graphql";
 import { IsEmail, Matches } from "class-validator";
+import { Ad } from "./Ad";
 
 @Entity()
 @ObjectType()
@@ -16,6 +24,10 @@ export class User extends BaseEntity {
 
   @Column({ length: 255 })
   hashedPassword!: string;
+
+  @OneToMany(() => Ad, (ad) => ad.createdBy)
+  @Field(() => [Ad])
+  ads!: Ad[];
 }
 
 @InputType()

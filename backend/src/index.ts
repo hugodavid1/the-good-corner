@@ -6,13 +6,13 @@ import { startStandaloneServer } from "@apollo/server/standalone";
 import { dataSource } from "./datasource";
 import AdResolver from "./resolvers/AdsResolver";
 import CategoriesResolver from "./resolvers/CategoriesResolver";
-import UsersResolver from "./resolvers/Users";
-import { authChecker } from "./auth";
+import UsersResolver from "./resolvers/UsersResolver";
+import { customAuthChecker } from "./auth";
 
 async function start() {
   const schema = await buildSchema({
     resolvers: [TagResolver, AdResolver, CategoriesResolver, UsersResolver],
-    authChecker: authChecker,
+    authChecker: customAuthChecker,
   });
   const server = new ApolloServer({
     schema,
