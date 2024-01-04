@@ -86,6 +86,17 @@ export class UsersResolver {
       return null;
     }
   }
+
+  @Mutation(() => Boolean)
+  async signOut(@Ctx() ctx: ContextType): Promise<boolean> {
+    const cookies = new Cookies(ctx.req, ctx.res);
+    cookies.set("token", "", {
+      httpOnly: true,
+      secure: false,
+      maxAge: 0,
+    });
+    return true;
+  }
 }
 
 export default UsersResolver;
