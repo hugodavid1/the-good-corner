@@ -37,42 +37,49 @@ function SignUp(): React.ReactNode {
   return (
     <>
       <div className="main-content">
-        <h1 className="font-bold text-xl">The Good Corner</h1>
-        <h2 className="font-semibold text-lg">S'inscrire</h2>
-        <form className="flex max-w-md flex-col gap-4 mt-2" onSubmit={onSubmit}>
-          <div>
-            <div className="mb-2 block">
-              <Label htmlFor="email" value="Your email" />
+        <div className="flex justify-center">
+          <form
+            className="flex max-w-md flex-col gap-4 mt-2  w-full"
+            onSubmit={onSubmit}
+          >
+            <div className="w-96 flex justify-center">
+              <img className="w-96" src="./images/tgc.png" />
             </div>
-            <TextInput
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              type="email"
-              placeholder="name@flowbite.com"
-              required
-            />
-          </div>
-          <div>
-            <div className="mb-2 block">
-              <Label htmlFor="password" value="Your password" />
+            <div>
+              <h2 className="font-semibold text-xl mt-4 text-green-900">
+                Se connecter
+              </h2>
+              <div className="mb-2 block">
+                <Label htmlFor="email" value="Votre email" />
+              </div>
+              <TextInput
+                id="email"
+                className="w-full"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                type="email"
+                placeholder="name@flowbite.com"
+                required
+              />
             </div>
-            <TextInput
-              id="password"
-              onChange={(e) => setPassword(e.target.value)}
-              type="password"
-              value={password}
-              required
-            />
-          </div>
-          {/* <div className="flex items-center gap-2">
-            <Checkbox id="remember" />
-            <Label htmlFor="remember">Remember me</Label>
-          </div> */}
-          <Button style={{ backgroundColor: _COLORS.primary }} type="submit">
-            S'enregistrer
-          </Button>
-        </form>
+            <div>
+              <div className="mb-2 block">
+                <Label htmlFor="password" value="Votre mot de passe" />
+              </div>
+              <TextInput
+                id="password"
+                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+                value={password}
+                required
+              />
+            </div>
+
+            <Button className="bg-green-900" type="submit">
+              S'enregistrer
+            </Button>
+          </form>
+        </div>
       </div>
     </>
   );

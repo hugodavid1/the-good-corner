@@ -59,7 +59,6 @@ h1 {
   height: 40px;
   padding: 8px;
   border-radius: 8px;
-  border: 2px solid #24524b;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -67,7 +66,6 @@ h1 {
   font-size: 12px;
   font-weight: bold;
   color: white;
-  background-color: #24524b;
   cursor: pointer;
 }
 
@@ -75,11 +73,11 @@ h1 {
   border: none;
 }
 
-.button-primary {
+/* .button-primary {
   background-color: #f9ba67;
   color: white;
   border: #f9ba67;
-}
+} */
 
 .text-field-with-button {
   display: flex;
@@ -99,7 +97,7 @@ h1 {
   height: 40px;
   background-color: white;
   padding: 8px;
-  border: 2px solid #eaad8b;
+  /* border: 2px solid #eaad8b; */
   border-radius: 8px;
   font-size: 12px;
   font-family: inherit;
@@ -263,7 +261,6 @@ h1 {
   background-color: #f2f2f2; /* Couleur d'arrière-plan blanc clair */
   padding: 20px; /* Espace entre le contenu et les bords du div */
   border-radius: 10px; /* Coins arrondis */
-  border: 3px solid #83b677;
   width: 70%; /* La largeur dépend du contenu */
   margin: 0 auto; /* Centrer le div */
 }

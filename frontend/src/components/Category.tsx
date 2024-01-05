@@ -10,7 +10,7 @@ export type CategoryProps = CategoryType;
 
 export function Category(props: CategoryProps): React.ReactNode {
   return (
-    <Link href={`/category/${props.id}`} style={{ color: _COLORS.primary }}>
+    <Link href={`/category/${props.id}`} className="text-green-900">
       {props.name}
     </Link>
   );

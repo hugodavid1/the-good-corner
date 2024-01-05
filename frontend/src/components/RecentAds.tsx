@@ -105,11 +105,11 @@ export function RecentAds(props: RecentAdsProps): React.ReactNode {
               <Button
                 pill
                 size={"small"}
+                className="bg-green-900"
                 onClick={() => {
                   addToTotal(item.price);
                 }}
                 style={{
-                  backgroundColor: _COLORS.primary,
                   color: "white",
                 }}
               >
@@ -118,10 +118,8 @@ export function RecentAds(props: RecentAdsProps): React.ReactNode {
               </Button>
               <Button
                 pill
+                className="text-green-900"
                 onClick={() => handleRedirectEdit(item.id)}
-                style={{
-                  color: _COLORS.primary,
-                }}
               >
                 <div
                   style={{

@@ -6,6 +6,8 @@ import { mutationCreateAd, mutationUpdateAd, queryAllAds } from "@/graphql/ads";
 import { AdType } from "./AdCard";
 import { useRouter } from "next/router";
 import { findAllTags } from "@/graphql/tags";
+import { Button, Checkbox, Label, TextInput, Select } from "flowbite-react";
+import Link from "next/link";
 
 export type AdFormData = {
   title: string;
@@ -110,37 +112,39 @@ export default function FormAd(props: AdFormProps) {
     <>
       <main className="main-content">
         <>
-          <h2>
-            {props.ad ? `Modifier l'offre ${props.ad?.id}` : "Créer une offre"}
-          </h2>
           {error === "price" && <p>Le prix doit être positif</p>}
           {error === "title" && (
             <p>Le titre est requis et doit faire plus de 3 caractères</p>
           )}
           <div className="form-container">
-            <form onSubmit={onSubmit} className="form-ad">
+            <h2 className="font-semibold text-xl mb-4 text-green-900">
+              {props.ad
+                ? `Modifier l'offre ${props.ad?.id}`
+                : "Créer une offre"}
+            </h2>
+            {/* <form onSubmit={onSubmit} className="form-ad">
               <input
                 type="text"
-                name="title"
                 className="text-field-form"
+                name="title"
                 placeholder="Titre de l'annonce"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
 
               <input
+              className="text-field-form"
                 type="text"
                 name="description"
-                className="text-field-form"
                 placeholder="Description de l'annonce"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
 
               <input
+              className="text-field-form"
                 type="text"
                 name="imgUrl"
-                className="text-field-form"
                 placeholder="Lien de l'image"
                 value={imgUrl}
                 onChange={(e) => setImgUrl(e.target.value)}
@@ -182,6 +186,94 @@ export default function FormAd(props: AdFormProps) {
               <button type="submit" className="button-form">
                 {props.ad ? "Modifier" : "Créer"}
               </button>
+            </form> */}
+            <form className="flex max-w-md flex-col gap-4">
+              <div>
+                <div className="mb-2 block">
+                  <Label htmlFor="title" value="Votre titre" />
+                </div>
+                <TextInput
+                  type="text"
+                  name="title"
+                  placeholder="Titre de l'annonce"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+              </div>
+              <div>
+                <div className="mb-2 block">
+                  <Label htmlFor="description" value="Votre description" />
+                </div>
+                <TextInput
+                  type="text"
+                  name="description"
+                  placeholder="Description de l'annonce"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  shadow
+                />
+              </div>
+              <div>
+                <div className="mb-2 block">
+                  <Label htmlFor="imgUrl" value="Votre image" />
+                </div>
+                <TextInput
+                  type="text"
+                  name="imgUrl"
+                  placeholder="Lien de l'image"
+                  value={imgUrl}
+                  onChange={(e) => setImgUrl(e.target.value)}
+                  shadow
+                />
+              </div>
+              <div>
+                <div className="mb-2 block">
+                  <Label htmlFor="price" value="Votre prix" />
+                </div>
+                <TextInput
+                  type="number"
+                  name="price"
+                  placeholder="0,00€"
+                  value={price}
+                  onChange={(e) => setPrice(Number(e.target.value))}
+                  shadow
+                />
+              </div>
+              <div>
+                <div className="mb-2 block">
+                  <Label htmlFor="category" value="Votre catégorie" />
+                </div>
+                <Select
+                  name="category"
+                  value={categoryId + ""}
+                  onChange={(e) => setCategoryId(Number(e.target.value))}
+                >
+                  {categories.map((category) => (
+                    <option key={category.id} value={category.id}>
+                      {category.name}
+                    </option>
+                  ))}
+                </Select>
+              </div>
+              <div>
+                <div className="mb-2 block">
+                  <Label htmlFor="tags" value="Votre tag" />
+                </div>
+                <Select
+                  name="tags"
+                  value={tagsId + ""}
+                  onChange={(e) => setTagsId(Number(e.target.value))}
+                >
+                  {tags.map((tag) => (
+                    <option key={tag.id} value={tag.id}>
+                      {tag.name}
+                    </option>
+                  ))}
+                </Select>
+              </div>
+              <Button type="submit" className="bg-green-900">
+                {props.ad ? "Modifier" : "Créer"}
+              </Button>
             </form>
           </div>
         </>

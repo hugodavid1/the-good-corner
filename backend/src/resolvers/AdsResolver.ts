@@ -40,7 +40,6 @@ export function getAdQueryWhere(graphqlWhere?: AdsWhere): {
 
 @Resolver(Ad)
 export class AdResolver {
-  @Authorized()
   @Query(() => [Ad])
   async allAds(
     @Arg("where", { nullable: true }) where?: AdsWhere,
@@ -62,7 +61,6 @@ export class AdResolver {
     return ads;
   }
 
-  @Authorized()
   @Query(() => Int)
   async allAdsCount(
     @Arg("where", { nullable: true }) where?: AdsWhere

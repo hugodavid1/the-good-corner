@@ -67,7 +67,7 @@ function SignUp(): React.ReactNode {
             <Checkbox id="remember" />
             <Label htmlFor="remember">Remember me</Label>
           </div> */}
-          <Button style={{ backgroundColor: _COLORS.primary }} type="submit">
+          <Button className="bg-green-900" type="submit">
             S'enregistrer
           </Button>
         </form>

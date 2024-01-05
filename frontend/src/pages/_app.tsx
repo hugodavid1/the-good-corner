@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import { getCurrentUser } from "@/graphql/users";
 import { useEffect } from "react";
 import { Spinner } from "flowbite-react";
+import { MeType } from "@/types";
 
 const client = new ApolloClient({
   uri: "http://localhost:5000",
@@ -20,30 +21,26 @@ const client = new ApolloClient({
 
 const publicPages = ["/signin", "/signup", "/"];
 
-function AuthProvider({ children }: { children: React.ReactNode }) {
+function AuthProvider(props: { children: React.ReactNode }) {
+  const { data, loading } = useQuery<{ item: MeType | null }>(getCurrentUser);
   const router = useRouter();
-  const { data, loading, error } = useQuery(getCurrentUser);
 
   useEffect(() => {
-    if (loading) {
-      return;
-      <Spinner color="warning" aria-label="Warning spinner example" />;
-    }
-
+    console.log("Navigating, new path =>", router.pathname);
     if (publicPages.includes(router.pathname) === false) {
-      console.log("private page");
-      if (error) {
+      console.log("Seems to be a private page");
+      if (!data?.item) {
+        console.log("Not connected, redirecting");
         router.replace("/signin");
       }
     }
-  }, [error, router]);
+  }, [router, data]);
 
   if (loading) {
-    return;
-    <Spinner color="warning" aria-label="Warning spinner example" />;
+    return <p>Chargement</p>;
   }
 
-  return <>{children}</>;
+  return props.children;
 }
 
 function App({ Component, pageProps }: AppProps) {

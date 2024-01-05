@@ -12,7 +12,7 @@ import { User, UserCreateInput } from "../entities/User";
 import argon2 from "argon2";
 import JWT from "jsonwebtoken";
 import Cookies from "cookies";
-import { ContextType } from "../auth";
+import { ContextType, getUserFromReq } from "../auth";
 
 @Resolver(User)
 export class UsersResolver {
@@ -30,10 +30,9 @@ export class UsersResolver {
     return user;
   }
 
-  @Authorized()
-  @Query(() => User)
-  async me(@Ctx() context: ContextType): Promise<User> {
-    return context.user as User;
+  @Query(() => User, { nullable: true })
+  async me(@Ctx() context: ContextType): Promise<User | null> {
+    return getUserFromReq(context.req, context.res);
   }
 
   @Mutation(() => User)
@@ -71,7 +70,7 @@ export class UsersResolver {
         const token = JWT.sign(
           {
             exp: Math.floor(Date.now() / 1000) + 60 * 60 * 2,
-            UserId: existingUser.id,
+            userId: existingUser.id,
           },
           process.env.JWT_SECRET || "supersecret"
         );

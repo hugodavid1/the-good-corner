@@ -7,22 +7,17 @@ import { Button } from "flowbite-react";
 import { _COLORS } from "../utils/constants";
 import CustomModal from "./CustomModal";
 import { getCurrentUser, mutationSignOut } from "@/graphql/users";
-
-export type MeType = {
-  id: number;
-  email: string;
-};
+import { MeType } from "@/types";
 
 export function Header() {
   const { data, error, loading } = useQuery<{ allCategories: CategoryType[] }>(
     queryAllCategories
   );
 
-  const {
-    data: UserData,
-    error: UserError,
-    loading: UserLoading,
-  } = useQuery<{ me: MeType }>(getCurrentUser);
+  const { data: meData } = useQuery<{ item: MeType | null }>(getCurrentUser);
+  const me = meData?.item;
+
+  console.log(me);
 
   const [openModal, setOpenModal] = useState(false);
   const emailInputRef = useRef<HTMLInputElement>(null);
@@ -47,15 +42,19 @@ export function Header() {
       />
       <header className="header">
         <div className="main-menu">
-          <h1>
-            <a href="/" className="button logo link-button">
+          {/* <a href="/" className="button logo link-button">
               <span className="mobile-short-label">TGC</span>
               <span className="desktop-long-label">THE GOOD CORNER</span>
-            </a>
-          </h1>
-          <form className="text-field-with-button">
-            <input className="text-field main-search-field" type="search" />
-            <button className="button button-primary">
+            </a> */}
+          <div className="w-32 h-22">
+            <img className="w-96" src="./images/tgc.png" />
+          </div>
+          <form className="text-field-with-button ">
+            <input
+              className="text-field main-search-field border-yellow-300"
+              type="search"
+            />
+            <button className="button button-primary bg-yellow-300 border-yellow-300">
               <svg
                 aria-hidden="true"
                 width="16"
@@ -69,34 +68,45 @@ export function Header() {
               </svg>
             </button>
           </form>
+          {me && (
+            <Button
+              pill
+              className="text-green-900 bg-yellow-300"
+              onClick={() => router.push("/user")}
+            >
+              Mon compte
+            </Button>
+          )}
           <Button
             pill
             onClick={() => setOpenModal(true)}
-            style={{ backgroundColor: _COLORS.primary }}
+            className="bg-green-900"
           >
             Créer une catégorie
           </Button>
           <Button
             pill
-            style={{
-              backgroundColor: _COLORS.secondary,
-              color: _COLORS.primary,
-            }}
+            className="text-green-900 bg-yellow-300"
             onClick={() => router.push("/ads/new")}
           >
             Publier une annonce
           </Button>
-          {UserData?.me && (
+          {me ? (
             <Button
               pill
-              style={{
-                backgroundColor: _COLORS.secondary,
-                color: _COLORS.primary,
-              }}
+              className="text-green-900 bg-yellow-300"
               onClick={logout}
             >
               {" "}
               Déconnexion
+            </Button>
+          ) : (
+            <Button
+              pill
+              className="text-green-900 bg-yellow-300"
+              onClick={() => router.push("/signin")}
+            >
+              Se connecter
             </Button>
           )}
         </div>

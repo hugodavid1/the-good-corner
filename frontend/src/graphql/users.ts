@@ -19,7 +19,7 @@ export const mutationSignIn = gql`
 
 export const getCurrentUser = gql`
   query Query {
-    me {
+    item: me {
       id
       email
     }

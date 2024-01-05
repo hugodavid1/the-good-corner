@@ -1,7 +1,7 @@
 import FormAd from "@/components/FormAd";
-import { MeType } from "@/components/Header";
 import { Layout } from "@/components/Layout";
 import { getCurrentUser } from "@/graphql/users";
+import { MeType } from "@/types";
 import { useQuery } from "@apollo/client";
 import { Spinner } from "flowbite-react";
 
